@@ -6,6 +6,7 @@ import asyncio
 import logging
 import time
 import os
+import uvicorn
 
 from decimal import Decimal
 from starlette.middleware.cors import CORSMiddleware
@@ -323,7 +324,7 @@ async def generate_quiz_questions(request: Request):
         else:
             raise HTTPException(status_code=400, detail="Invalid provider")
 
-        return SuccessResponse(data=quiz_questions, duration=time.time() - start_time, message='Quiz questions generated successfully', provider='twelvelabs', type='quiz_questions').model_dump()
+        return SuccessResponse(data=quiz_questions, duration=time.time() - start_time, message='Quiz questions generated successfully', provider=provider, type='quiz_questions').model_dump()
     
     except Exception as e:
 

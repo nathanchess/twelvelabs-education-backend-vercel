@@ -3,11 +3,11 @@ import boto3
 import instructor
 import asyncio
 
-import numpy as np
-from pytube import YouTube, Search
-
-from twelvelabs import TwelveLabs
+import math
 import os
+
+from pytube import YouTube, Search
+from twelvelabs import TwelveLabs
 from dotenv import load_dotenv
 
 from .db_handler import DBHandler
@@ -197,12 +197,13 @@ class VideoSearchAgent:
         """ Euclidian distance algorithm implemented in NumPy. """
 
         minimum_length = min(len(embedding1), len(embedding2))
-
         if len(embedding1) != len(embedding2):
             embedding1 = embedding1[:minimum_length]
             embedding2 = embedding2[:minimum_length]
         
-        return np.linalg.norm(np.array(embedding1) - np.array(embedding2))
+        # Calculate the sum of squared differences
+        sum_sq = sum((p - q) ** 2 for p, q in zip(embedding1, embedding2))
+        return math.sqrt(sum_sq)
     
     def knn_search(self, comparison_embedding: list, embeddings: dict, k: int):
 

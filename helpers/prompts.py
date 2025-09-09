@@ -247,4 +247,5 @@ __all__ = [
     "quiz_questions_prompt",
     "engagement_prompt",
     "multimodal_transcript_prompt",
+    "gist_prompt"
 ]
