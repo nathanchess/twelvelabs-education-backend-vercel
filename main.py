@@ -6,7 +6,6 @@ import asyncio
 import logging
 import time
 import os
-import uvicorn
 
 from decimal import Decimal
 from starlette.middleware.cors import CORSMiddleware
