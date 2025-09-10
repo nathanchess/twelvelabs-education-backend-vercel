@@ -21,7 +21,7 @@ class LectureBuilderAgent:
 
     def __init__(self):
 
-        self.bedrock_client = boto3.client('bedrock-runtime')
+        self.bedrock_client = boto3.client('bedrock-runtime', aws_access_key_id=os.getenv('AWS_ACCESS_KEY'), aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
         self.instructor_client = instructor.from_bedrock(self.bedrock_client)
         self.bedrock_model_id = 'us.anthropic.claude-3-7-sonnet-20250219-v1:0'
 
@@ -63,7 +63,7 @@ class EvaluationAgent:
 
     def __init__(self, video_metadata: dict):
 
-        self.bedrock_client = boto3.client('bedrock-runtime')
+        self.bedrock_client = boto3.client('bedrock-runtime', aws_access_key_id=os.getenv('AWS_ACCESS_KEY'), aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
         self.instructor_client = instructor.from_bedrock(self.bedrock_client)
         self.bedrock_model_id = 'us.anthropic.claude-3-7-sonnet-20250219-v1:0'
 
