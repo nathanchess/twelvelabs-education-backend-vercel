@@ -19,7 +19,7 @@ class AWSHandler(LLMProvider):
 
     def __init__(self, s3_key: str):
 
-        self.bedrock_client = boto3.client('bedrock-runtime', region_name='us-east-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY'), aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+        self.bedrock_client = boto3.client('bedrock-runtime', region_name='us-east-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'), aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
         self.bedrock_model_id = 'amazon.nova-lite-v1:0'
 
         self.reasoning_agent = LectureBuilderAgent()
