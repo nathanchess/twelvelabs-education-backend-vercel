@@ -17,10 +17,6 @@ from fastapi.staticfiles import StaticFiles
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-origins = [
-    "http://localhost:3000",
-]
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -71,6 +67,11 @@ def convert_for_dynamodb(data) -> any:
             return obj
     
     return recursive_convert(data)
+
+@app.get("/")
+def read_root():
+    logging.info("Root endpoint was reached!")
+    return {"Hello": "World"}
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
