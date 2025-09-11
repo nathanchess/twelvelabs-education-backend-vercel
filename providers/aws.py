@@ -74,8 +74,8 @@ class AWSHandler(LLMProvider):
 
             original_response = json.loads(response.get('body').read())
             model_response = original_response['output']['message']['content'][0]['text']
-            cleaned_response_str  = model_response.replace("```json", "").replace("```", "")
-            model_response = data_schema.model_validate_json(from_json(json.dumps(cleaned_response_str), allow_partial=True))
+            model_response  = model_response.replace("```json", "").replace("```", "")
+            model_response = data_schema.model_validate_json(from_json(json.dumps(model_response), allow_partial=True))
 
             return model_response.model_dump()
         
@@ -89,7 +89,7 @@ class AWSHandler(LLMProvider):
         except Exception as e:
 
             print(f"Error generating gist: {e}")
-            return response
+            return None
 
     async def generate_gist(self):
         
