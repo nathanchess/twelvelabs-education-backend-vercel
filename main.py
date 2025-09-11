@@ -6,6 +6,7 @@ import asyncio
 import logging
 import time
 import os
+import uvicorn
 
 from decimal import Decimal
 from starlette.middleware.cors import CORSMiddleware
@@ -144,7 +145,16 @@ async def generate_gist(video_params: VideoIdRequestSingleProvider = Depends(get
         return SuccessResponse(data=gist_result, duration=duration, message='Cached analysis retrieved successfully', provider=provider, type='gist').model_dump()
 
     except Exception as e:
-        return DefaultResponse(status='error', message=str(e), status_code=500)
+        
+        logger.error(f"Error in generate_gist: {e}", exc_info=True) 
+        
+        return JSONResponse(
+            status_code=500,
+            content={
+                'status': 'error',
+                'message': f"An internal error occurred: {str(e)}"
+            }
+        )
 
 @app.get('/generate_chapters')
 async def generate_chapters(video_params: VideoIdRequestSingleProvider = Depends(get_video_id_from_request_single_provider)):

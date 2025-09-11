@@ -264,7 +264,7 @@ class TwelveLabsHandler(LLMProvider):
 
             gist = self.twelve_labs_client.gist(video_id=self.twelve_labs_video_id, types=['topic', 'hashtag', 'title'])
 
-            title, hashtags, topics = gist.title, gist.hashtags.root, gist.topics.root
+            title, hashtags, topics = gist.title, gist.hashtags, gist.topics
 
             self.title = title
             self.hashtags = hashtags
