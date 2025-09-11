@@ -74,8 +74,8 @@ class AWSHandler(LLMProvider):
 
             original_response = json.loads(response.get('body').read())
             model_response = original_response['output']['message']['content'][0]['text']
-            model_response = model_response.replace("```json", "").replace("```", "")
-            model_response = data_schema.model_validate_json(from_json(json.dumps(model_response), allow_partial=True))
+            cleaned_response_str  = model_response.replace("```json", "").replace("```", "")
+            model_response = data_schema.model_validate_json(from_json(json.dumps(cleaned_response_str), allow_partial=True))
 
             return model_response.model_dump()
         

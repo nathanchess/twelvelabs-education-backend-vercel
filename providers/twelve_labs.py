@@ -96,10 +96,10 @@ class TwelveLabsHandler(LLMProvider):
                 prompt=prompt
             )
 
-            response.data = response.data.replace("```json", "").replace("```", "")
-            formatted_resposne = data_schema.model_validate(from_json(response.data, allow_partial=True))
+            cleaned_data_string = response.data.replace("```json", "").replace("```", "")
+            validated_data = data_schema.model_validate(from_json(cleaned_data_string, allow_partial=True))
 
-            return formatted_resposne.model_dump()
+            return validated_data.model_dump()
         
         except Exception as e:
 
