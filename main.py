@@ -6,7 +6,6 @@ import asyncio
 import logging
 import time
 import os
-import uvicorn
 
 from decimal import Decimal
 from starlette.middleware.cors import CORSMiddleware
@@ -918,6 +917,3 @@ async def fetch_related_videos(request: Request):
             'status': 'error',
             'message': str(e)
         }, status_code=500)
-    
-if __name__ == '__main__':
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
